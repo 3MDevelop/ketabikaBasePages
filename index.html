@@ -125,6 +125,38 @@
         display: flex;
       }
 
+      .basket-icon-container {
+        position: relative;
+        display: inline-block;
+      }
+
+      .basket-icon {
+        font-size: 1.3rem;
+        color: #dbdbdb;
+        transition: transform 0.2s ease;
+      }
+
+      .basket-icon:hover {
+        color: #b8b8b8;
+        cursor: pointer;
+      }
+
+      .basket-badge {
+        position: absolute;
+        top: 0.1rem;
+        right: -0.2rem;
+        background-color: #dc3545;
+        color: white;
+        border-radius: 50%;
+        min-width: 1rem;
+        height: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.5rem;
+      }
+
       @media (min-width: 768px) {
         #DesktopHeader {
           display: flex !important;
@@ -145,7 +177,12 @@
             height="56"
             alt="KetabiShop"
           />
-          <div class="mx-2 mb-1 fw-bold" style="user-select: none">
+          <div
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            class="mx-2 mb-1 fw-bold"
+            style="user-select: none"
+          >
             دسته بندی
           </div>
           <div class="mx-2 mb-1 fw-bold" style="user-select: none">
@@ -155,6 +192,37 @@
           <div class="mx-2 bi-person-circle fs-4"></div>
         </div>
       </div>
+
+      <div
+        id="mobileTopBar"
+        class="d-flex d-md-none container-fluid justify-content-center align-items-center fs-4 text-white py-3"
+        style="
+          background-color: #646464;
+          box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.4);
+        "
+      >
+        <div class="basket-icon-container ms-3 me-4">
+          <i class="bi bi-person-circle basket-icon" style="font-size: 1.7rem;"></i>
+        </div>
+        <div class="basket-icon-container me-3">
+          <i class="bi bi-basket basket-icon"></i>
+          <span class="basket-badge" style="user-select: none;">99</span>
+        </div>
+
+        <div class="basket-icon-container flex-fill">
+          <i class="bi bi-search basket-icon"></i>
+        </div>
+
+        <div>
+          <img
+            class="mx-3"
+            src="./img/logo-small.png"
+            height="42"
+            alt="KetabiShop"
+          />
+        </div>
+      </div>
+
       <div id="AppContainer">
         <div>
           <div>1</div>
@@ -166,13 +234,9 @@
           <div>1</div>
         </div>
       </div>
+
       <div id="mobileHeader">
-
-        <div>
-          <div class="bi-person-circle"></div>
-          <div>Profile</div>
-        </div>
-
+        
         <div>
           <div class="bi-house-fill"></div>
           <div>Home</div>
@@ -192,13 +256,55 @@
           <div class="bi-journal-bookmark-fill"></div>
           <div>My Library</div>
         </div>
+      </div>
 
-        <div>
-          <div class="bi-search"></div>
-          <div class="fs-6">Search</div>
+      <div
+        id="exampleModal"
+        class="modal fade"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                Modal title
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button type="button" class="btn btn-primary">
+                Save changes
+              </button>
+            </div>
+          </div>
         </div>
-
       </div>
     </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
