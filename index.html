@@ -5,17 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>KetabiShop</title>
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css"
     />
 
     <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
       #root {
         width: 100%;
         padding: 0;
@@ -26,14 +30,114 @@
         align-items: center;
         background-color: #d5e2fd;
         height: 100vh;
-        box-sizing: border-box;
         background-image: url(./img/backTile.jpg);
       }
 
-      #DesktopHeader {
+      /* Modal styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-dialog {
+        width: 90%;
+        max-width: 500px;
+        margin: 1rem;
+      }
+
+      .modal-content {
+        background-color: white;
+        border-radius: 0.3rem;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      }
+
+      .modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .modal-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+
+      .btn-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #000;
+        opacity: 0.5;
+        padding: 0.25rem;
+      }
+
+      .btn-close:hover {
+        opacity: 0.75;
+      }
+
+      .modal-body {
+        padding: 1rem;
+      }
+
+      .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+        padding: 1rem;
+        border-top: 1px solid #dee2e6;
+        gap: 0.5rem;
+      }
+
+      .btn {
+        padding: 0.375rem 0.75rem;
+        border: 1px solid transparent;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.2s;
+      }
+
+      .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+      }
+
+      .btn-secondary:hover {
+        background-color: #5a6268;
+      }
+
+      .btn-primary {
+        background-color: #0d6efd;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: #0b5ed7;
+      }
+
+      /* Fade animation */
+      .fade {
+        transition: opacity 0.15s linear;
+      }
+
+      #desktopHeader {
         display: none;
         width: 100%;
-        max-width: 100%;
         position: relative;
         padding: 0.6rem 0.9rem;
         justify-content: center;
@@ -41,10 +145,9 @@
         z-index: 10;
         background-color: #d9d9d9;
         box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.4);
-        box-sizing: border-box;
       }
 
-      #DesktopHeader > div {
+      .desktop-header-container {
         max-width: 1000px !important;
         width: 100%;
         display: flex;
@@ -52,7 +155,42 @@
         justify-content: space-between;
         align-items: flex-end;
         padding: 0.5rem 0;
-        box-sizing: border-box;
+      }
+
+      .header-logo {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+      }
+
+      .header-category {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.25rem;
+        font-weight: bold;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .header-special {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.25rem;
+        font-weight: bold;
+        user-select: none;
+      }
+
+      .header-search {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
+        flex-grow: 1;
+        margin-right: 1rem;
+      }
+
+      .header-profile {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        font-size: 1.5rem;
       }
 
       #AppContainer {
@@ -64,10 +202,9 @@
         justify-content: center !important;
         align-items: center !important;
         overflow: auto !important;
-        box-sizing: border-box;
       }
 
-      #AppContainer > div {
+      .app-content {
         display: flex !important;
         height: 100% !important;
         flex-direction: column !important;
@@ -79,7 +216,6 @@
         padding-left: 15px;
         flex: 0 0 100%;
         max-width: 100%;
-        box-sizing: border-box;
       }
 
       #mobileHeader {
@@ -96,8 +232,7 @@
         box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.4);
       }
 
-      #mobileHeader > div {
-        /* margin: 0.5rem 0; */
+      .mobile-nav-item {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -105,29 +240,38 @@
         font-size: 1.4rem;
         cursor: pointer;
         transition: all 0.2s ease;
-        
         border-radius: 0 0 8px 8px;
         width: 90px;
         height: 90%;
         text-align: center;
-        
       }
 
-      #mobileHeader > div:hover {
+      .mobile-nav-item:hover {
         background-color: #6c757d;
         color: white;
         font-size: 1.5rem;
-        /* margin-bottom: 20px; */
       }
 
-      #mobileHeader > div :last-child {
+      .mobile-nav-label {
         font-size: 0.8rem;
         font-weight: bolder;
         display: none;
       }
 
-      #mobileHeader > div:hover :last-child {
+      .mobile-nav-item:hover .mobile-nav-label {
         display: flex;
+      }
+
+      #mobileTopBar {
+        width: 100%;
+        background-color: #646464;
+        box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.4);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
       }
 
       .basket-icon-container {
@@ -161,11 +305,36 @@
         font-size: 0.5rem;
       }
 
+      .mobile-topbar-profile {
+        margin-right: 1rem;
+        margin-left: 0.75rem;
+      }
+
+      .mobile-topbar-basket {
+        margin-right: 0.75rem;
+      }
+
+      .mobile-topbar-search {
+        flex-grow: 1;
+      }
+
+      .mobile-topbar-logo {
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+      }
+
+      .flex-fill {
+        flex-grow: 1;
+      }
+
       @media (min-width: 768px) {
-        #DesktopHeader {
+        #desktopHeader {
           display: flex !important;
         }
         #mobileHeader {
+          display: none !important;
+        }
+        #mobileTopBar {
           display: none !important;
         }
       }
@@ -173,64 +342,52 @@
   </head>
   <body>
     <div id="root">
-      <div id="DesktopHeader">
-        <div>
+      <div id="desktopHeader">
+        <div class="desktop-header-container">
           <img
-            class="mx-2"
+            class="header-logo"
             src="./img/logo-small.png"
             height="56"
             alt="KetabiShop"
           />
           <div
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            class="mx-2 mb-1 fw-bold"
+            id="categoryTrigger"
+            class="header-category"
             style="user-select: none"
           >
             دسته بندی
           </div>
-          <div class="mx-2 mb-1 fw-bold" style="user-select: none">
+          <div class="header-special" style="user-select: none">
             پیشنهاد ویژه
           </div>
-          <div class="mx-2 bi-search fs-4 flex-fill ms-3"></div>
-          <div class="mx-2 bi-person-circle fs-4"></div>
+          <div class="header-search bi-search"></div>
+          <div class="header-profile bi-person-circle"></div>
         </div>
       </div>
 
-      <div id="mobileTopBar"
-        class="d-flex d-md-none container-fluid justify-content-center align-items-center fs-4 text-white py-3"
-        style="
-          background-color: #646464;
-          box-shadow: 0 0 7px 1px rgba(0, 0, 0, 0.4);
-        "
-      >
-        <div class="basket-icon-container ms-3 me-4">
+      <div id="mobileTopBar">
+        <div class="basket-icon-container mobile-topbar-profile">
           <i
             class="bi bi-person-circle basket-icon"
             style="font-size: 1.7rem"
           ></i>
         </div>
-        <div class="basket-icon-container me-3">
+        <div class="basket-icon-container mobile-topbar-basket">
           <i class="bi bi-basket basket-icon"></i>
           <span class="basket-badge" style="user-select: none">99</span>
         </div>
 
-        <div class="basket-icon-container flex-fill">
+        <div class="basket-icon-container mobile-topbar-search flex-fill">
           <i class="bi bi-search basket-icon"></i>
         </div>
 
-        <div>
-          <img
-            class="mx-3"
-            src="./img/logo-small.png"
-            height="42"
-            alt="KetabiShop"
-          />
+        <div class="mobile-topbar-logo">
+          <img src="./img/logo-small.png" height="42" alt="KetabiShop" />
         </div>
       </div>
 
       <div id="AppContainer">
-        <div>
+        <div class="app-content">
           <div>1</div>
           <div>1</div>
           <div>1</div>
@@ -242,55 +399,40 @@
       </div>
 
       <div id="mobileHeader">
-        <div>
+        <div class="mobile-nav-item">
           <div class="bi-house-fill"></div>
-          <div>Home</div>
+          <div class="mobile-nav-label">Home</div>
         </div>
 
-        <div>
+        <div class="mobile-nav-item">
           <div class="bi-card-checklist"></div>
-          <div>Categury</div>
+          <div class="mobile-nav-label">Categury</div>
         </div>
 
-        <div>
+        <div class="mobile-nav-item">
           <div class="bi-stars"></div>
-          <div>Offers</div>
+          <div class="mobile-nav-label">Offers</div>
         </div>
 
-        <div>
+        <div class="mobile-nav-item">
           <div class="bi-journal-bookmark-fill"></div>
-          <div>My Library</div>
+          <div class="mobile-nav-label">My Library</div>
         </div>
       </div>
 
-      <div id="exampleModal"
-        class="modal fade"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
+      <!-- Modal -->
+      <div id="exampleModal" class="modal fade">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                Modal title
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+              <h1 class="modal-title">Modal title</h1>
+              <button type="button" class="btn-close" aria-label="Close">
+                ×
+              </button>
             </div>
             <div class="modal-body">...</div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
+              <button type="button" class="btn btn-secondary">Close</button>
               <button type="button" class="btn btn-primary">
                 Save changes
               </button>
@@ -300,18 +442,43 @@
       </div>
     </div>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-      integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
-      integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
-      crossorigin="anonymous"
-    ></script>
     <script>
       console.info("KetabiShop Loaded Successfully!");
+
+      // Modal functionality
+      const modal = document.getElementById("exampleModal");
+      const categoryTrigger = document.getElementById("categoryTrigger");
+      const closeButtons = modal.querySelectorAll(".btn-close, .btn-secondary");
+
+      // Show modal
+      categoryTrigger.addEventListener("click", () => {
+        modal.classList.add("show");
+        document.body.style.overflow = "hidden";
+      });
+
+      // Hide modal
+      closeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          modal.classList.remove("show");
+          document.body.style.overflow = "";
+        });
+      });
+
+      // Close modal when clicking outside
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+          modal.classList.remove("show");
+          document.body.style.overflow = "";
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("show")) {
+          modal.classList.remove("show");
+          document.body.style.overflow = "";
+        }
+      });
     </script>
   </body>
 </html>
