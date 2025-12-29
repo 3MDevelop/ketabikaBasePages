@@ -479,6 +479,40 @@
           document.body.style.overflow = "";
         }
       });
+
+      // Mobile header & topbar: show modal on icon clicks
+      const mobileProfile = document.querySelector('.mobile-topbar-profile');
+      const mobileBasket = document.querySelector('.mobile-topbar-basket');
+      const mobileSearch = document.querySelector('.mobile-topbar-search');
+      const mobileNavItems = document.querySelectorAll('#mobileHeader .mobile-nav-item');
+
+      function showModalWithContent(title, bodyHtml) {
+        const titleEl = modal.querySelector('.modal-title');
+        const bodyEl = modal.querySelector('.modal-body');
+        if (titleEl) titleEl.textContent = title;
+        if (bodyEl) bodyEl.innerHTML = bodyHtml;
+        modal.classList.add('show');
+        document.body.style.overflow = 'hidden';
+      }
+
+      mobileProfile?.addEventListener('click', () => {
+        showModalWithContent('پروفایل', '<p>ورود یا ثبت‌نام خود را مدیریت کنید.</p>');
+      });
+
+      mobileBasket?.addEventListener('click', () => {
+        showModalWithContent('سبد خرید', '<p>آیتم‌های سبد خرید شما اینجا نمایش داده می‌شوند.</p>');
+      });
+
+      mobileSearch?.addEventListener('click', () => {
+        showModalWithContent('جستجو', '<input type="search" placeholder="جستجو در کتاب‌ها" style="width:100%;padding:8px;border:1px solid #ddd;border-radius:4px;">');
+      });
+
+      mobileNavItems.forEach((item) => {
+        item.addEventListener('click', () => {
+          const label = item.querySelector('.mobile-nav-label')?.textContent || 'منو';
+          showModalWithContent(label, `<p>نمایش محتوای «${label}» در مودال.</p>`);
+        });
+      });
     </script>
   </body>
 </html>
